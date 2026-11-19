@@ -3,13 +3,12 @@ Generate a literature-informed synthetic hydrogel formulation dataset.
 
 Why synthetic?
     Open, machine-readable datasets that pair hydrogel formulations with
-    measured stiffness are rare and usually scattered across paper tables.
+    measured stiffness are rare (usually scattered across paper tables).
     This script produces a *reproducible stand-in* whose trends follow
     well-known polymer-network behaviour, so the modelling pipeline can be
-    developed and tested end to end. Replace `hydrogel_formulations.csv`
-    with your own lab measurements (same column names) to use real data.
+    developed and tested end to end.
 
-Physical trends encoded (approximate, for realism, not for design):
+Physical trends encoded:
     * Modulus scales with polymer concentration as a power law,
       E ~ c^n with n ~ 2-2.5 for semi-dilute crosslinked networks
       (de Gennes scaling; commonly observed for GelMA and PEGDA).
