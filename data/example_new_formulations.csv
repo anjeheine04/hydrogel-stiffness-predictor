@@ -1,0 +1,7 @@
+sample_id,polymer,polymer_conc_wv,macromer_mw_kda,degree_of_methacrylation_pct,crosslinker_conc,crosslinker_type,crosslink_time_s,test_temperature_c
+NEW01,GelMA,5,,80,0.25,LAP_wv,60,37
+NEW02,GelMA,10,,80,0.25,LAP_wv,60,37
+NEW03,GelMA,15,,80,0.25,LAP_wv,60,37
+NEW04,PEGDA,10,3.4,,0.1,LAP_wv,120,25
+NEW05,PEGDA,10,10.0,,0.1,LAP_wv,120,25
+NEW06,Alginate,2,,,100,CaCl2_mM,900,37
