@@ -8,32 +8,29 @@
 
 ## Why I built this
 
-Hydrogel stiffness matters in tissue engineering. Substrate modulus affects stem-cell
-differentiation, cell spreading and the immune response to an implant. Tuning it usually
+ Tuning hydrogel stiffness
 takes a lot of trial and error: make a formulation, crosslink it, run compression testing,
 repeat.
 
-I built this project **retrospectively**, after my undergraduate lab work at Imperial College
-London. That work included a project tuning Sylgard PDMS formulations to a target Young's
+I built this project, after my lab work on a project tuning Sylgard PDMS formulations to a target Young's
 modulus for soft-tissue analogues, and a rheology study of eight crosslinked PVA gel
 formulations. In both, finding the right formulation meant trial and error in the lab.
-Looking back, I wanted a reusable computational workflow that could learn
+A reusable computational workflow that could learn
 formulation–property relationships from measurements and narrow the design space before
-going into the lab, to support similar work in my future research.
+going into the lab, would have supported me and can support my further research.
 
 The model takes a formulation (polymer, concentration, crosslinker dose, crosslinking time
 and so on) and predicts its compressive modulus. That makes it possible to screen candidate
-formulations against a target stiffness, such as soft brain-like (~1 kPa), muscle-like
-(~10 kPa) or pre-osteoid (~30+ kPa) matrices.
+formulations against a target stiffness.
 
-> **Note:** the code was written after those projects, not during them. The results below
-> come from a synthetic dataset (see "About the data" below), not from my lab
+> **Note:**  Results
+> come from a synthetic dataset ("About the data"), not from my lab
 > measurements.
 
 ## What it does
 
-- **Reproducible data pipeline**: loads a formulation table, validates the columns and handles
-  polymer-specific parameters that only apply to some materials.
+- **Reproducible data pipeline**: loads formulation table, validates columns and handles
+  polymer-specific parameters(that only apply to some materials).
 - **Domain-informed feature engineering**: log-transformed concentration, crosslinker and time
   features, so the models can capture the power-law scaling *E ∝ cⁿ* predicted by
   polymer-network theory.
