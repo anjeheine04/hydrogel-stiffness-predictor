@@ -71,7 +71,7 @@ predict. A plain linear model already performs well once log features are added,
 the value of physically motivated feature engineering. The tree ensembles add gains by
 capturing saturation of crosslinking.
 
-## ⚠️ About the data
+##  About the data
 
 Open datasets that pair hydrogel formulations with measured stiffness are scarce and usually
 spread across tables in individual papers. To develop and test the pipeline end to end,
@@ -98,43 +98,7 @@ materials. The pipeline is built so that **real lab data drops straight in** (se
 Applying it to measured data, such as my PDMS formulation results or published open-access
 GelMA compression data, is the planned next step.
 
-## Using your own experimental data
 
-Replace or add a CSV with these columns (leave a cell blank where a parameter doesn't apply):
-
-| Column | Description |
-|---|---|
-| `polymer` | e.g. `GelMA`, `PEGDA`, `Alginate` |
-| `polymer_conc_wv` | polymer concentration, % w/v |
-| `macromer_mw_kda` | macromer molecular weight, kDa (PEGDA) |
-| `degree_of_methacrylation_pct` | degree of methacrylation, % (GelMA) |
-| `crosslinker_conc` | LAP % w/v, or CaCl₂ mM |
-| `crosslinker_type` | `LAP_wv` or `CaCl2_mM` |
-| `crosslink_time_s` | UV exposure or gelation time, s |
-| `test_temperature_c` | mechanical-testing temperature, °C |
-| `compressive_modulus_kpa` | **target**: measured compressive modulus, kPa |
-
-Then run `python src/train.py --data path/to/your_data.csv`.
-
-## Quick start
-
-```bash
-git clone https://github.com/anjeheine04/hydrogel-stiffness-predictor.git
-cd hydrogel-stiffness-predictor
-pip install -r requirements.txt
-
-# (optional) regenerate the synthetic dataset
-python data/generate_dataset.py --n 450 --seed 42
-
-# train, compare and evaluate models; writes figures to results/ and the model to models/
-python src/train.py
-
-# predict new formulations
-python src/predict.py --input data/example_new_formulations.csv --output results/new_predictions.csv
-python src/predict.py --polymer GelMA --conc 10 --dom 80 --crosslinker 0.25 --time 60 --temp 37
-
-# run tests
-python -m pytest -q
 ```
 
 ## Project structure
@@ -156,7 +120,7 @@ hydrogel-stiffness-predictor/
 └── requirements.txt
 ```
 
-## Skills demonstrated
+## Skills
 
 Python · pandas · NumPy · scikit-learn (pipelines, ColumnTransformer, cross-validation,
 ensemble regression, permutation importance) · regression and model evaluation · feature
@@ -164,8 +128,6 @@ engineering grounded in polymer physics · Matplotlib · reproducible research s
 
 ## Limitations and next steps
 
-- Validate on real data: my own PDMS formulation measurements, and published open-access
-  formulation studies (e.g. GelMA compression-modulus datasets).
 - Add uncertainty estimates (quantile gradient boosting or Gaussian-process regression) so each
   prediction comes with a confidence interval.
 - Inverse design: search formulation space for the cheapest recipe that hits a target modulus.
