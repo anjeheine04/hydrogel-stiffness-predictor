@@ -13,12 +13,22 @@ differentiation, cell spreading and the immune response to an implant. Tuning it
 takes a lot of trial and error: make a formulation, crosslink it, run compression testing,
 repeat.
 
-I built this project to support my research. I wanted a repeatable computational workflow
-for analysing formulation–property data and narrowing the experimental design space before
-going into the lab. The model takes a formulation (polymer, concentration, crosslinker dose,
-crosslinking time and so on) and predicts its compressive modulus. That makes it possible to
-screen candidate formulations against a target stiffness, such as soft brain-like (~1 kPa),
-muscle-like (~10 kPa) or pre-osteoid (~30+ kPa) matrices.
+I built this project **retrospectively**, after my undergraduate lab work at Imperial College
+London. That work included a project tuning Sylgard PDMS formulations to a target Young's
+modulus for soft-tissue analogues, and a rheology study of eight crosslinked PVA gel
+formulations. In both, finding the right formulation meant trial and error in the lab.
+Looking back, I wanted a reusable computational workflow that could learn
+formulation–property relationships from measurements and narrow the design space before
+going into the lab, to support similar work in my future research.
+
+The model takes a formulation (polymer, concentration, crosslinker dose, crosslinking time
+and so on) and predicts its compressive modulus. That makes it possible to screen candidate
+formulations against a target stiffness, such as soft brain-like (~1 kPa), muscle-like
+(~10 kPa) or pre-osteoid (~30+ kPa) matrices.
+
+> **Note:** the code was written after those projects, not during them. The results below
+> come from a synthetic dataset (see "About the data" below), not from my lab
+> measurements.
 
 ## What it does
 
@@ -68,8 +78,16 @@ capturing saturation of crosslinking.
 
 Open datasets that pair hydrogel formulations with measured stiffness are scarce and usually
 spread across tables in individual papers. To develop and test the pipeline end to end,
-`data/hydrogel_formulations.csv` is a **synthetic, literature-informed dataset** (450 samples)
-produced by `data/generate_dataset.py`. It encodes established trends:
+`data/hydrogel_formulations.csv` is a **synthetic dataset** (450 samples) produced by
+`data/generate_dataset.py`.
+
+**How it was made:** random formulations are generated, and a stiffness is calculated for
+each from simple formulas plus random noise. The *shape* of the formulas follows established
+qualitative trends. The numerical coefficients were **chosen by hand** to give plausible
+stiffness ranges; they were **not fitted to any published dataset**. The model's high scores
+therefore show that the pipeline works correctly. They say nothing about real materials.
+
+Trends encoded:
 
 - power-law concentration scaling (E ∝ c^2–2.5)
 - saturating dependence on photoinitiator dose and UV exposure (or CaCl₂ and gelation time for alginate)
@@ -77,10 +95,11 @@ produced by `data/generate_dataset.py`. It encodes established trends:
 - higher modulus at higher GelMA degree of methacrylation
 - ~12 % multiplicative experimental noise
 
-Its magnitudes sit in ranges typically reported for GelMA (~1–60 kPa), PEGDA (~5–800 kPa)
-and Ca-alginate (~4–75 kPa). These figures are **not real measurements** and should not be
-used to design materials. The pipeline is built so that **real lab data drops straight in**
-(see below).
+The generated values span roughly 2–55 kPa for GelMA, 6–800 kPa for PEGDA and 4–75 kPa for
+Ca-alginate. These figures are **not real measurements** and should not be used to design
+materials. The pipeline is built so that **real lab data drops straight in** (see below).
+Applying it to measured data, such as my PDMS formulation results or published open-access
+GelMA compression data, is the planned next step.
 
 ## Using your own experimental data
 
@@ -148,8 +167,8 @@ engineering grounded in polymer physics · Matplotlib · reproducible research s
 
 ## Limitations and next steps
 
-- Validate on real compression-test data from the lab and from published tables
-  (e.g. GelMA and PEGDA formulation studies).
+- Validate on real data: my own PDMS formulation measurements, and published open-access
+  formulation studies (e.g. GelMA compression-modulus datasets).
 - Add uncertainty estimates (quantile gradient boosting or Gaussian-process regression) so each
   prediction comes with a confidence interval.
 - Inverse design: search formulation space for the cheapest recipe that hits a target modulus.
